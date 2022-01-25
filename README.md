@@ -48,7 +48,8 @@ In my opinion, this is the easiest way to install the package and manage version
 ![](Documentation~/Images/NpmScopeSettings.png?raw=true)
 3. Click "Apply" and wait for unity to refresh the registry.
 4. In the [Package Manager window](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui.html), select **My Registries** in the **Packages** drop-down menu on the top left.
-5. **NuHub** should now appear in the list and be available to install.
+5. **NuHub** should now be available to install under the scope **Neadrim**.
+![](Documentation~/Images/MyRegistriesInstall.png?raw=true)
 
 For more information, see Unity's documentation about [Installing from a registry](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui-install.html).
 
