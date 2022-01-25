@@ -50,7 +50,8 @@ namespace Neadrim.NuHub
 
 		private void OnEnable()
 		{
-			_cache = Cache.Load();
+			if (_cache == null)
+				_cache = Cache.Load();
 		}
 
 		private void OnDisable()
@@ -60,6 +61,9 @@ namespace Neadrim.NuHub
 
 		public void CreateGUI()
 		{
+			if (_cache == null)
+				_cache = Cache.Load();
+
 			var root = rootVisualElement;
 			var uxmlData = UIData.Instance;
 			uxmlData.NuHub.CloneTree(root);
@@ -70,16 +74,13 @@ namespace Neadrim.NuHub
 			_refreshDate = root.Q<Label>("RefreshDate");
 			_refreshButton = root.Q<Button>("Refresh");
 			_refreshButton.clickable.clicked += OnRefresh;
-
-			_currentReleaseRoot = root.Q<VisualElement>("CurrentRelease");
-			UpdateCurrentRelease();
-
-			CreateFilters(root.Q<VisualElement>("ReleaseFiltersPanel"));
-
 			_refreshProgressBar = root.Q<ProgressBar>("RefreshProgress");
 			_refreshProgressBar.style.visibility = Visibility.Hidden;
-			_refreshDate.text = _cache.LastRefreshDate.ToString("d MMM, yyyy");
 			_errorMessageRoot = root.Q<VisualElement>("ErrorMessageRoot");
+			_currentReleaseRoot = root.Q<VisualElement>("CurrentRelease");
+
+			CreateFilters(root.Q<VisualElement>("ReleaseFiltersPanel"));
+			UpdateCurrentRelease();
 			UpdateLastRefreshDate();
 
 			if (_cache.Releases.Count == 0 || _cache.HasMissingNotes() || (_cache.LastRefreshDate - DateTime.Now).Days >= AutomaticRefreshIntervalDays)
