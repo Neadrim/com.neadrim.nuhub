@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="justify-content: flex-start; align-items: stretch; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; background-color: rgb(42, 42, 42); flex-shrink: 0; height: 30px; max-height: 30px; min-height: 30px; flex-grow: 1;">
+        <ui:VisualElement style="align-items: stretch; flex-shrink: 0; height: 100%; flex-grow: 1;">
+            <ui:VisualElement name="Note" style="background-color: rgb(78, 78, 78); flex-direction: row; flex-shrink: 0; height: 100%; flex-grow: 1; display: flex;">
+                <ui:Label text="2022.2.0" display-tooltip-when-elided="true" name="Version" style="background-color: rgb(42, 42, 42); padding-left: 4px; padding-right: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78); -unity-text-align: middle-center; width: 80px; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; overflow: hidden;" />
+                <ui:Label text="Scene Management" display-tooltip-when-elided="true" name="Tag" style="background-color: rgb(42, 42, 42); padding-left: 4px; padding-right: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78); -unity-text-align: middle-center; width: 190px; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; overflow: hidden;" />
+                <ui:Label text="Description" name="Description" display-tooltip-when-elided="true" style="padding-left: 5px; padding-right: 5px; -unity-text-align: middle-left; padding-top: 2px; padding-bottom: 2px; white-space: nowrap; flex-grow: 1; background-color: rgb(60, 60, 60);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Header" style="background-color: rgb(78, 78, 78); flex-direction: row; flex-shrink: 0; height: 100%; flex-grow: 1;">
+                <ui:VisualElement style="width: 10px; background-color: rgb(210, 210, 210); flex-shrink: 0; margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px;" />
+                <ui:Label text="CATEGORY" display-tooltip-when-elided="true" name="Category" style="background-color: rgb(77, 77, 77); padding-left: 4px; padding-right: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78); -unity-text-align: middle-left; width: 100%; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; overflow: hidden; -unity-font-style: bold; flex-shrink: 1;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0041a47d1073c924683eef0be8e474f9, type: 3}
+  m_Name: UIData
+  m_EditorClassIdentifier: 
+  <NuHub>k__BackingField: {fileID: 9197481963319205126, guid: c91583b35e928554287ed7d5d046240c, type: 3}
+  <ReleaseInfo>k__BackingField: {fileID: 9197481963319205126, guid: 46f87375b5e350f48ba6024cde1d24eb, type: 3}
+  <ReleaseNote>k__BackingField: {fileID: 9197481963319205126, guid: d8e14af75acb6b249849d60ddf276eac, type: 3}
+  <DownloadIcon>k__BackingField: {fileID: 2800000, guid: c23ea346d4f058e46b5ce5d0fae05283, type: 3}
+  <InstalledIcon>k__BackingField: {fileID: 2800000, guid: 4a4b69247b636e24ebc3a9639bc19330, type: 3}
+  <UpdateAvailableIcon>k__BackingField: {fileID: 2800000, guid: d30f75ab206cd094fa4e227a68d0d711, type: 3}
