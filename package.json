@@ -4,9 +4,9 @@
   "displayName": "NuHub",
   "unity": "2021.2",
   "keywords": [
+    "unity",
     "editor",
-    "tool",
-    "web"
+    "utility"
   ],
   "author": {
     "name": "Neadrim",
@@ -15,6 +15,6 @@
   },
   "type": "tool",
   "hideInEditor": false,
-  "description": "NuHub is a UPM package for Unity Editor that facilitates tracking of Unity releases. It allows to browse release notes and easily install any Editor versions through Unity Hub, starting from Unity 2017.1.0.\n\nDISCLAIMER: This package is developed by Neadrim and is neither provided nor supported by Unity Technologies in any way.",
+  "description": "NuHub is a UPM package for Unity Editor that facilitates tracking of Unity releases. It allows to browse release notes and easily install any Editor versions through Unity Hub, starting from Unity 2017.1.0.",
   "documentationUrl": "https://github.com/Neadrim/com.neadrim.nuhub"
 }
