@@ -5,7 +5,7 @@
                 <ui:Label text="2021.1.1" display-tooltip-when-elided="true" name="Version" style="font-size: 16px; -unity-font-style: normal; padding-left: 2px;" />
                 <ui:Label text="LTS" display-tooltip-when-elided="true" name="Stream" style="border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78);" />
             </ui:VisualElement>
-            <ui:VisualElement style="background-color: rgb(77, 77, 77); flex-direction: row;">
+            <ui:VisualElement style="background-color: rgb(88, 88, 88); flex-direction: row;">
                 <ui:Label text="Released:" display-tooltip-when-elided="true" style="padding-left: 2px;" />
                 <ui:Label text="&lt;Date&gt;" display-tooltip-when-elided="true" name="Date" />
             </ui:VisualElement>

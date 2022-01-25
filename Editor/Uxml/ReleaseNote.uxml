@@ -8,7 +8,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="Header" style="background-color: rgb(78, 78, 78); flex-direction: row; flex-shrink: 0; height: 100%; flex-grow: 1;">
                 <ui:VisualElement style="width: 10px; background-color: rgb(210, 210, 210); flex-shrink: 0; margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px;" />
-                <ui:Label text="CATEGORY" display-tooltip-when-elided="true" name="Category" style="background-color: rgb(77, 77, 77); padding-left: 4px; padding-right: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78); -unity-text-align: middle-left; width: 100%; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; overflow: hidden; -unity-font-style: bold; flex-shrink: 1;" />
+                <ui:Label text="CATEGORY" display-tooltip-when-elided="true" name="Category" style="background-color: rgb(88, 88, 88); padding-left: 4px; padding-right: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(78, 78, 78); border-right-color: rgb(78, 78, 78); border-top-color: rgb(78, 78, 78); border-bottom-color: rgb(78, 78, 78); -unity-text-align: middle-left; width: 100%; white-space: nowrap; padding-top: 2px; padding-bottom: 2px; overflow: hidden; -unity-font-style: bold; flex-shrink: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
