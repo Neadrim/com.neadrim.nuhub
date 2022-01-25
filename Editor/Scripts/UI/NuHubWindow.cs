@@ -25,7 +25,7 @@ namespace Neadrim.NuHub
 		private const int AutomaticRefreshIntervalDays = 1;
 		private ListView _releaseListView;
 		private ListView _releaseNotesListView;
-		private ReleaseCache _cache;
+		private Cache _cache;
 		private readonly List<Release> _releases = new List<Release>();
 		private readonly List<Release> _filteredReleases = new List<Release>();
 		private readonly List<ReleaseNoteItem> _releaseNotes = new List<ReleaseNoteItem>();
@@ -50,7 +50,7 @@ namespace Neadrim.NuHub
 
 		private void OnEnable()
 		{
-			_cache = ReleaseCache.Load();
+			_cache = Cache.Load();
 		}
 
 		private void OnDisable()
@@ -101,8 +101,8 @@ namespace Neadrim.NuHub
 			{
 				var release = _filteredReleases[i];
 				var controller = (ReleaseInfoController)element.userData;
-				var style = release.Equals(ReleaseCache.ExecutingRelease) ? ReleaseInfoController.InstallButtonStyle.Installed :
-					release.Version > ReleaseCache.ExecutingRelease.Version ? ReleaseInfoController.InstallButtonStyle.UpdateAvailable :
+				var style = release.Equals(Cache.ExecutingRelease) ? ReleaseInfoController.InstallButtonStyle.Installed :
+					release.Version > Cache.ExecutingRelease.Version ? ReleaseInfoController.InstallButtonStyle.UpdateAvailable :
 					ReleaseInfoController.InstallButtonStyle.DownloadAvailable;
 				controller.Bind(element, _filteredReleases[i], style);
 			};
@@ -176,7 +176,7 @@ namespace Neadrim.NuHub
 
 			try
 			{
-				await _cache.RefreshAsync(new Progress<ReleaseCache.RefreshProgress>(progress =>
+				await _cache.RefreshAsync(new Progress<Cache.RefreshProgress>(progress =>
 				{
 					_refreshProgressBar.title = progress.Step;
 					_refreshProgressBar.value = progress.Progress * 100f;
@@ -202,7 +202,7 @@ namespace Neadrim.NuHub
 				controller = new ReleaseInfoController();
 				_currentReleaseRoot.userData = controller;
 			}
-			controller.Bind(_currentReleaseRoot, ReleaseCache.ExecutingRelease, ReleaseInfoController.InstallButtonStyle.Hidden);
+			controller.Bind(_currentReleaseRoot, Cache.ExecutingRelease, ReleaseInfoController.InstallButtonStyle.Hidden);
 		}
 
 		private void UpdateLastRefreshDate() => _refreshDate.text = _cache.LastRefreshDate == default ? "Never" : _cache.LastRefreshDate.ToString("d MMM, yyyy");
@@ -242,7 +242,7 @@ namespace Neadrim.NuHub
 					for (var i = 0; i < _cache.Releases.Count; ++i)
 					{
 						var release = _cache.Releases[i];
-						if (release.Version > ReleaseCache.ExecutingRelease.Version)
+						if (release.Version > Cache.ExecutingRelease.Version)
 							_releases.Add(release);
 					}
 					break;

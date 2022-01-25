@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
 namespace Neadrim.NuHub
 {
 	[Serializable]
-	internal class ReleaseCache : ISerializationCallbackReceiver, IDisposable
+	internal class Cache : ISerializationCallbackReceiver, IDisposable
 	{
 		public struct RefreshProgress
 		{
@@ -31,8 +31,8 @@ namespace Neadrim.NuHub
 
 		public static Release ExecutingRelease;
 
-		private const string CacheDir = "Library/" + nameof(Neadrim) + "/" + nameof(NuHubWindow) + "/";
-		private const string CacheFilePath = CacheDir + nameof(NuHubWindow) + ".cache";
+		private const string CacheDir = "Library/" + nameof(Neadrim) + "/" + nameof(NuHub) + "/";
+		private const string CacheFilePath = CacheDir + nameof(NuHub) + ".cache";
 		private const int SimultaneousRequestCount = 10;
 
 		private string GetCachePath(string fileName) => CacheDir + fileName;
@@ -45,7 +45,7 @@ namespace Neadrim.NuHub
 		private RefreshProgress _currentProgress;
 		private CancellationTokenSource _tokenSource;
 
-		static ReleaseCache()
+		static Cache()
 		{
 			if (!Release.TryParse(Application.unityVersion, out ExecutingRelease))
 				Debug.LogError($"Failed to identify current Unity version '{Application.unityVersion}'");
@@ -53,30 +53,30 @@ namespace Neadrim.NuHub
 
 		public static bool IsSupported(Version version) => version.Major >= 2017;
 		
-		public static ReleaseCache Empty() => new ReleaseCache();
+		public static Cache Empty() => new Cache();
 
-		public static ReleaseCache Load()
+		public static Cache Load()
 		{
 			if (!File.Exists(CacheFilePath))
-				return new ReleaseCache();
+				return new Cache();
 
 			try
 			{
 				var content = File.ReadAllText(CacheFilePath);
-				var cache = JsonUtility.FromJson<ReleaseCache>(content);
+				var cache = JsonUtility.FromJson<Cache>(content);
 				cache.Initialize();
 				return cache;
 			}
 			catch (Exception e)
 			{
 				Debug.LogError(e);
-				return new ReleaseCache();
+				return new Cache();
 			}
 		}
 
 		public static bool IsExecutingRelease(Release release) => ExecutingRelease.Equals(release);
 
-		private ReleaseCache() => _releases = new List<Release>();
+		private Cache() => _releases = new List<Release>();
 
 		public DateTime LastRefreshDate { get; private set; }
 

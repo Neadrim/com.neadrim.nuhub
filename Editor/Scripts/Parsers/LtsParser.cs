@@ -6,7 +6,7 @@ namespace Neadrim.NuHub
 {
 	internal static class LtsParser
 	{
-		public static void Parse(string content, ReleaseCache cache)
+		public static void Parse(string content, Cache cache)
 		{
 			var doc = new HtmlDocument();
 			doc.LoadHtml(content);
@@ -20,7 +20,7 @@ namespace Neadrim.NuHub
 					continue;
 				}
 				
-				if (!ReleaseCache.IsSupported(newRelease.Version))
+				if (!Cache.IsSupported(newRelease.Version))
 					continue;
 
 				if (!cache.TryGet(newRelease, out var release))
