@@ -18,7 +18,7 @@ NuHub is a UPM package for Unity Editor that facilitates tracking of Unity relea
 
 Why? I often need to look for specific issues or fixes before updating my project(s) to a new Unity version. Searching through individual web pages in the [Unity Releases Archive](https://unity3d.com/get-unity/download/archive) is tedious. Unfortunately, Unity Hub only provides options to install the latest releases and otherwise redirects you to the [archive page](https://unity3d.com/get-unity/download/archive). I would have liked to see Unity Hub 3.x integrate some of these features but still no luck, so here it is.
 
-## Features:
+## Features
 
 - Automatically fetch releases information from [Unity Download Archive](https://unity3d.com/get-unity/download/archive) and keeps a local cache for quick access.
 - Browse all releases in a single and organized editor window with quick filters.
@@ -60,12 +60,21 @@ For more information, see Unity's documentation about [Installing from a registr
 3. Enter [NuHub](https://github.com/Neadrim/com.neadrim.nuhub) Git URL in the text box (https://github.com/Neadrim/com.neadrim.nuhub.git) and click **Add**.
 You may also install a specific release, branch or commit by appending it to the URL.
 For example: https://github.com/Neadrim/com.neadrim.nuhub.git#1.0.0
+![](Documentation~/Images/GitHubSettings.png?raw=true)
 
 For more information, see Unity's documentation about [Installing from a Git URL](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui-giturl.html).
 
 ### Local / Embedded
 
 Download the latest [release](https://github.com/Neadrim/com.neadrim.nuhub/releases) and follow Unity's guide about [Installing a package from a local folder](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui-local.html) or as [embedded dependencies](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-embed.html). In short, simply copy the package content in your project under *./Packages/com.neadrim.nuhub* to embed it.
+
+## Usage
+
+You can open NuHub from the menu **Window/NuHub**.
+
+On the first use, it may take a moment to fecth releases information. You can see the progress in the lower left corner of the window. The information is cached in your project Library folder, so as long as you don't delete it, subsequent refreshes should be really quick.
+
+By default, NuHub will check for new Unity releases once a day, when the window is open. You can also force it to refresh by clicking the **Refresh** button in the status bar.
 
 ## Third-Party Code & Licenses
 
