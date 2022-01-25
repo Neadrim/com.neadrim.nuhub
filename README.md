@@ -16,21 +16,20 @@ The code relies entirely on the content available in [Unity download archive](ht
 
 NuHub is a UPM package for Unity Editor that facilitates tracking of Unity releases. It allows to browse release notes and easily install any Editor versions through Unity Hub, starting from Unity 2017.1.0.
 
-Why? I often need to look for specific issues or fixes before updating my project(s) to a new Unity version. Searching through individual web pages in the [Unity Releases Archive](https://unity3d.com/get-unity/download/archive) is tedious. Unfortunately, Unity Hub only provides options to install the latest releases and otherwise redirects you to the [archive page](https://unity3d.com/get-unity/download/archive). I would have liked to see Unity Hub 3.x integrate some of these features but still no luck, so here it is.
+Why? I often need to look for specific issues or fixes before updating my projects to a new Unity version and searching through individual web pages in the [Unity Releases Archive](https://unity3d.com/get-unity/download/archive) is tedious. Unfortunately, Unity Hub only provides options to install the latest releases and otherwise redirects you to the [archive page](https://unity3d.com/get-unity/download/archive). I would have liked to see Unity Hub 3.x integrate some of these features but still no luck, so here it is.
 
 ## Features
 
-- Automatically fetch releases information from [Unity Download Archive](https://unity3d.com/get-unity/download/archive) and keeps a local cache for quick access.
-- Browse all releases in a single and organized editor window with quick filters.
-- Easily view available updates based on your current Unity version.
+- Browse official Unity releases in a single and organized editor window (Pre-Releases not available yet).
+- View available updates based on your current Unity version.
 - Search release notes by keywords in multiple releases at once.
 - Install any Editor versions in Unity Hub with a single click.
-- Checks daily (or on demand) for new releases.
+- Automatically check for new releases daily or on demand.
 
 ## Requirements
 
 Works with **Unity 2021.2.0** or newer.
-I did not bother supporting earlier versions and have no intention to do so since one of my goal with this project was to familiarize myself with [UI Toolkit](https://docs.unity3d.com/2021.2/Documentation/Manual/UIElements.html) but unfortunately, it still had a lot of issues prior to 2021.2.
+I did not bother supporting earlier versions and have no intention to do so since one of my goals with this project was to familiarize myself with [UI Toolkit](https://docs.unity3d.com/2021.2/Documentation/Manual/UIElements.html) but unfortunately, it still had a lot of issues prior to 2021.2.
 
 ## Installation
 
@@ -48,7 +47,7 @@ In my opinion, this is the easiest way to install the package and manage version
 *Note that you may add multiple scopes to the list if you are using other packages from npmjs.org.*
 ![](Documentation~/Images/NpmScopeSettings.png?raw=true)
 3. Click "Apply" and wait for unity to refresh the registry.
-4. In the [Package Manager window](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui.html), select **My Registries** in the **Packages** dropdown menu on the top left.
+4. In the [Package Manager window](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui.html), select **My Registries** in the **Packages** drop-down menu on the top left.
 5. **NuHub** should now appear in the list and be available to install.
 
 For more information, see Unity's documentation about [Installing from a registry](https://docs.unity3d.com/2021.2/Documentation/Manual/upm-ui-install.html).
@@ -72,7 +71,7 @@ Download the latest [release](https://github.com/Neadrim/com.neadrim.nuhub/relea
 
 You can open NuHub from the menu **Window/NuHub**.
 
-On the first use, it may take a moment to fecth releases information. You can see the progress in the lower left corner of the window. The information is cached in your project Library folder, so as long as you don't delete it, subsequent refreshes should be really quick.
+On the first use, it may take a moment to fetch releases information. You can see the progress in the bottom left status bar. The information is cached in the project Library folder so as long as you don't delete it, subsequent refreshes should be really quick.
 
 By default, NuHub will check for new Unity releases once a day, when the window is open. You can also force it to refresh by clicking the **Refresh** button in the status bar.
 
@@ -80,4 +79,4 @@ By default, NuHub will check for new Unity releases once a day, when the window 
 
 ### [Html Agility Pack](https://github.com/zzzprojects/html-agility-pack)
 
-[The MIT License (MIT)](/Editor/lib/htmlagilitypack/LICENSE.md)
+[The MIT License (MIT)](Editor/lib/htmlagilitypack/LICENSE.md)
