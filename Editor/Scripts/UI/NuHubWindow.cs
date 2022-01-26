@@ -183,6 +183,9 @@ namespace Neadrim.NuHub
 					_refreshProgressBar.value = progress.Progress * 100f;
 				}));
 			}
+			catch (OperationCanceledException)
+			{
+			}
 			finally
 			{
 				_refreshProgressBar.style.visibility = Visibility.Hidden;
