@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Neadrim.NuHub
@@ -22,6 +23,7 @@ namespace Neadrim.NuHub
 		public static async Task<string> GetAsync(Uri uri)
 		{
 			using var request = UnityWebRequest.Get(uri);
+			request.SetRequestHeader("User-Agent", $"UnityEditor/{Application.unityVersion} (UPM {nameof(Neadrim)}.{nameof(NuHub)})");
 			await request.SendWebRequest();
 			switch (request.result)
 			{
