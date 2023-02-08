@@ -281,11 +281,24 @@ namespace Neadrim.NuHub
 			if (_filteredReleases.Capacity < _releases.Count)
 				_filteredReleases.Capacity = _releases.Count;
 
-			bool Filter(Release release) =>
-				string.IsNullOrWhiteSpace(_releaseSearchText) ||
-				release.Version.ToString().IndexOf(_releaseSearchText, StringComparison.InvariantCultureIgnoreCase) != -1 ||
-				release.Type.ToString().IndexOf(_releaseSearchText, StringComparison.InvariantCultureIgnoreCase) != -1 ||
-				release.Stream.ToString().IndexOf(_releaseSearchText, StringComparison.InvariantCultureIgnoreCase) != -1;
+			var keywords = string.IsNullOrWhiteSpace(_releaseSearchText) ? null : _releaseSearchText.Split(' ');
+			bool Filter(Release release)
+			{
+				if (keywords == null)
+					return true;
+
+				foreach (var keyword in keywords)
+				{
+					if (!string.IsNullOrWhiteSpace(keyword) &&
+						release.Version.ToString().IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1 &&
+						release.Type.ToString().IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1 &&
+						release.Stream.ToString().IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
 
 			foreach (var release in _releases)
 				if (Filter(release))
@@ -315,10 +328,24 @@ namespace Neadrim.NuHub
 			if (_filteredReleaseNotes.Capacity < _releaseNotes.Count)
 				_filteredReleaseNotes.Capacity = _releaseNotes.Count;
 
-			bool Filter(ReleaseNote note) =>
-				string.IsNullOrWhiteSpace(_releaseNotesSearchText) ||
-				note.Tag.IndexOf(_releaseNotesSearchText, StringComparison.InvariantCultureIgnoreCase) != -1 ||
-				note.Description.IndexOf(_releaseNotesSearchText, StringComparison.InvariantCultureIgnoreCase) != -1;
+			var keywords = string.IsNullOrWhiteSpace(_releaseNotesSearchText) ? null : _releaseNotesSearchText.Split(' ');
+			bool Filter(ReleaseNote note)
+			{
+				if (keywords == null)
+					return true;
+
+				foreach (var keyword in keywords)
+				{
+					if (!string.IsNullOrWhiteSpace(keyword) &&
+						note.Tag.IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1 &&
+						note.Category.IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1 &&
+						note.Description.IndexOf(keyword, StringComparison.InvariantCultureIgnoreCase) == -1)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
 
 			foreach (var item in _releaseNotes)
 				if (Filter(item.Note))
