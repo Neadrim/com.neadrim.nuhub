@@ -1,4 +1,5 @@
 using System;
+using System.IdentityModel.Tokens;
 using HtmlAgilityPack;
 using UnityEngine;
 
@@ -11,18 +12,16 @@ namespace Neadrim.NuHub
 			var doc = new HtmlDocument();
 			doc.LoadHtml(content);
 
-			var releaseContentNode = doc.DocumentNode.SelectSingleNode("//div[@class='g12 nest full-release rel']/div/div[@class='w100 clear']");
-			var divs = releaseContentNode.SelectNodes("div[@class='g12 markdown']");
-			if (divs.Count < 2)
+			var releaseContentNode = doc.DocumentNode.SelectSingleNode("//div[@class='release-notes']");
+			if (releaseContentNode == null)
 			{
-				Debug.LogError($"Failed to parse release notes content");
+				Debug.LogError($"[{release.Version}] Failed to parse release notes");
 				return;
 			}
 
 			string category = null;
-			var releaseNotesParent = divs[1];
 
-			foreach (var childNode in releaseNotesParent.ChildNodes)
+			foreach (var childNode in releaseContentNode.ChildNodes)
 			{
 				if (childNode.NodeType != HtmlNodeType.Element || childNode.Name.Length != 2)
 					continue;
@@ -30,8 +29,8 @@ namespace Neadrim.NuHub
 				if (childNode.Name[0] == 'h')
 				{
 					category = childNode.InnerText;
-					if (category.IndexOf("Known Issues", StringComparison.InvariantCultureIgnoreCase) != -1)
-						category = "Known Issues";
+					if (category.EndsWith("release notes", StringComparison.InvariantCultureIgnoreCase))
+						continue;
 				}
 				else if (childNode.Name == "ul")
 					ParseNotesBlocks(childNode, release, category);
@@ -49,7 +48,9 @@ namespace Neadrim.NuHub
 			
 			foreach (var node in nodes)
 			{
-				var note = ParseNote(node.InnerText);
+				var p = node.SelectSingleNode("p");
+				string text = p != null ? p.InnerText : node.InnerText;
+				var note = ParseNote(text);
 				note.Category = category;
 				version.Notes.Add(note);
 			}

@@ -10,16 +10,18 @@ namespace Neadrim.NuHub
 		{
 			var doc = new HtmlDocument();
 			doc.LoadHtml(content);
-			var nodes = doc.DocumentNode.SelectNodes(@"//div[@class='row clear']");
+			var nodes = doc.DocumentNode.SelectNodes(@"//div[@class='download-release-wrapper']");
+			if (nodes == null)
+			{
+				Debug.LogError("Failed to parse archive");
+				return;
+			}
+
 			foreach (var node in nodes)
 			{
-				var metaNode = node.SelectSingleNode("div[@class='g2']");
-				if (metaNode == null)
-					continue;
-
-				if (!ReadVersion(metaNode, out var newRelease))
+				if (!ReadVersion(node, out var newRelease))
 				{
-					Debug.LogError($"Failed to parse archive version: \n {node.InnerHtml}");					
+					Debug.LogError($"Failed to parse archive version: \n {node.InnerHtml}");
 					continue;
 				}
 
@@ -33,32 +35,28 @@ namespace Neadrim.NuHub
 					cache.Add(release);
 				}
 
-				if (ReadDate(metaNode, out var date))
+				if (ReadDate(node, out var date))
 					release.ReleaseDate = date;
-				
-				var linksNode = node.SelectSingleNode("div[@class='g10']");
-				if (linksNode == null)
-					continue;
 
-				ReadLinks(linksNode, release);
+				ReadLinks(node, release);
 			}
 		}
 
 		private static bool ReadVersion(HtmlNode node, out Release release)
 		{
-			var childNode = node.SelectSingleNode("div/h4");
-			if (childNode?.InnerText == null)
+			var titleNode = node.SelectSingleNode("div/div[@class='release-title']");
+			if (titleNode?.InnerText == null)
 			{
 				release = null;
 				return false;
 			}
 
-			return Release.TryParse(childNode.InnerText.Replace("Unity ", ""), out release);
+			return Release.TryParse(titleNode.InnerText.Replace("Unity ", ""), out release);
 		}
 
 		private static bool ReadDate(HtmlNode node, out DateTime date)
 		{
-			var dateNode = node.SelectSingleNode("p[@class='mb0 cl']");
+			var dateNode = node.SelectSingleNode("div/div[@class='release-date']");
 			if (dateNode?.InnerText == null)
 			{
 				date = new DateTime();
@@ -69,26 +67,24 @@ namespace Neadrim.NuHub
 
 		private static void ReadLinks(HtmlNode node, Release release)
 		{
-			var childNode = node.SelectSingleNode("a[@class='btn right']");
-			if (childNode != null)
+			var linksNode = node.SelectSingleNode("div[@class='release-links']");
+			if (linksNode == null)
 			{
-				var url = childNode.GetAttributeValue("href", null);
-				release.NotesUri = UnityWeb.Links.Absolute(url);
-			}
-			else
-			{
-				Debug.LogError($"[{release}] Failed to parse release notes URL");
+				Debug.LogError($"[{release}] Failed to parse links");
+				return;
 			}
 
-			childNode = node.SelectSingleNode("div[@class='sb right mr10']/a");
-			if (childNode != null)
+			foreach (var linkNode in linksNode.SelectNodes("div"))
 			{
-				var url = childNode.GetAttributeValue("href", null);
-				release.HubUri = new Uri(url);
-			}
-			else
-			{
-				Debug.LogError($"[{release}] Failed to parse Hub install URL");
+				var urlNode = linkNode.SelectSingleNode("a");
+				if (urlNode != null)
+				{
+					var url = urlNode.GetAttributeValue("href", null);
+					if (url.StartsWith("unityhub:", StringComparison.InvariantCultureIgnoreCase))
+						release.HubUri = new Uri(url);
+					else if (url.EndsWith("notes", StringComparison.InvariantCultureIgnoreCase))
+						release.NotesUri = UnityWeb.Links.Absolute(url);
+				}
 			}
 		}
 	}

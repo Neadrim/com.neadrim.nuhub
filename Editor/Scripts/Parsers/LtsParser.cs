@@ -10,11 +10,16 @@ namespace Neadrim.NuHub
 		{
 			var doc = new HtmlDocument();
 			doc.LoadHtml(content);
-			var releaseNodes = doc.DocumentNode.SelectNodes(@"//div[@class='g12 pt0 pb0 patch contextual-links-region']");
+			var releaseNodes = doc.DocumentNode.SelectNodes(@"//div[@class='component-releases-item__show__inner-header']");
+			if (releaseNodes == null)
+			{
+				Debug.LogError($"Failed to parse LTS list");
+				return;
+			}
+
 			foreach (var node in releaseNodes)
 			{
-				var metaNode = node.SelectSingleNode("div/div[@class='left meta']");
-				if (!ReadVersion(metaNode, out var newRelease))
+				if (!ReadVersion(node, out var newRelease))
 				{
 					Debug.LogError($"Failed to parse LTS version: \n {node.InnerHtml}");
 					continue;
@@ -31,32 +36,36 @@ namespace Neadrim.NuHub
 
 				release.Stream = ReleaseStream.Lts;
 
-				if (ReadDate(metaNode, out var date))
+				if (ReadDate(node, out var date))
 					release.ReleaseDate = date;
+
+				// TODO: Read the links and release notes from this page because the 
+				// latest LTS version is not present in the archive page so this info is missing
 			}
 		}
 
 		private static bool ReadVersion(HtmlNode node, out Release release)
 		{
-			var childNode = node.SelectSingleNode("h4[@class='mb5 expand']");
+			var childNode = node.SelectSingleNode("h4[@class='component-releases-item__title']/span");
 			if (childNode == null || childNode.InnerText == null)
 			{
 				release = null;
 				return false;
 			}
 
-			return Release.TryParse(childNode.InnerText.Replace("LTS Release ", ""), out release);
+			return Release.TryParse(childNode.InnerText, out release);
 		}
 
 		private static bool ReadDate(HtmlNode node, out DateTime date)
 		{
-			var dateNode = node.SelectSingleNode("p[@class='mb0 c-mg']");
-			if (dateNode?.InnerText == null)
+			var dateNode = node.SelectSingleNode("div/time");
+			var dateTime = dateNode.GetAttributeValue("datetime", null) ?? dateNode.InnerText;
+			if (dateTime == null)
 			{
 				date = new DateTime();
 				return false;
 			}
-			return DateTime.TryParse(dateNode.InnerText.Replace("Released: ", ""), out date);
+			return DateTime.TryParse(dateTime, out date);
 		}
 	}
 }
